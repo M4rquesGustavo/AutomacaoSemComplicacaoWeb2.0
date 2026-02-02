@@ -1,35 +1,48 @@
 package br.chronos.academy.automacaoWeb;
 
-import io.github.bonigarcia.wdm.WebDriverManager;
+import br.chronos.academy.core.Driver;
+import br.chronos.academy.pages.CursoWeb;
+import br.chronos.academy.pages.PrincipalPage;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+import java.time.Duration;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 
 class TestWeb {
 
-    ChromeDriver driver;
+    WebDriver driver;
+    Driver driverWeb;
+    PrincipalPage principalPage;
+    CursoWeb cursoWeb;
+
+
     @BeforeEach
     public void inicializateste(){
-        WebDriverManager.chromedriver().setup();
-        driver = new ChromeDriver();
-        driver.manage().window().maximize();
+        driverWeb = new Driver( "chrome");
+        driver = driverWeb.getDriver();
         driver.get("https://www.chronosacademy.com.br");
+        principalPage = new PrincipalPage(driver);
     }
 
     @Test
     public void primerioteste(){
-        //section[2]//h4
-        String xpathTitulo = "//section[2]/div[3]/div/div/div[1]/div/h4";
-        WebElement txtTitulo = driver.findElement(By.xpath(xpathTitulo));
-        String titulo = txtTitulo.getText();
-        assertEquals("Porque Tempo É Conhecimento.", titulo);
+        assertEquals("Porque Tempo É Conhecimento.", principalPage.getString());
+    }
+
+    @Test
+    public void segundoTest() {
+        principalPage.clickBotao();
+        cursoWeb = new CursoWeb(driver);
+        assertEquals("Conheça todos os nossos cursos.", cursoWeb.getTitulo2());
     }
 
     @AfterEach
