@@ -11,7 +11,7 @@ public class LoginMap {
         PageFactory.initElements(driver, this);
     }
 
-    // ===== CAMPOS DE LOGIN =====
+    // -------- LOGIN (já cadastrado) --------
 
     @FindBy(css = "input[data-qa='login-email']")
     public WebElement inpUserName;
@@ -19,24 +19,15 @@ public class LoginMap {
     @FindBy(css = "input[data-qa='login-password']")
     public WebElement inpPassword;
 
-    // (Automation Exercise NÃO tem remember,
-    // mas o Page espera, então criamos)
-    @FindBy(id = "remember")
-    public WebElement inpRemember;
-
-    // Botão Login
     @FindBy(css = "button[data-qa='login-button']")
     public WebElement btnLogin;
 
-    // ===== ELEMENTOS DE MODAL (mockados para compatibilidade) =====
+    // -------- MENSAGENS / VALIDAÇÕES --------
 
-    @FindBy(className = "close")
-    public WebElement btnFechar;
+    @FindBy(css = "p[style='color: red;']")
+    public WebElement msgErroLogin;
 
-    @FindBy(css = ".modal-backdrop")
-    public WebElement divFecharModal;
+    @FindBy(xpath = "//*[@id=\"header\"]/div/div/div/div[2]/div/ul/li[5]/a")
+    public WebElement txtUsuarioLogado;
 
-    // ===== BOTÃO SIGN IN (erro de nome mantido de propósito) =====
-    @FindBy(css = "button[data-qa='login-button']")
-    public WebElement btnSingin;
 }

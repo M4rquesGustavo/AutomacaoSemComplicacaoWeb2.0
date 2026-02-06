@@ -1,5 +1,6 @@
 package br.chronos.academy.pages;
 
+import br.chronos.academy.core.Driver;
 import br.chronos.academy.maps.LoginMap;
 import org.openqa.selenium.WebDriver;
 
@@ -9,34 +10,32 @@ public class LoginPage {
     LoginMap loginMap;
 
     public LoginPage() {
-        this.driver = driver;
+        this.driver = Driver.getDriver();
         loginMap = new LoginMap(driver);
     }
 
-    public void clickBtnFechar() {
-        loginMap.btnFechar.click();
-    }
+    public void preencherLogin(String email, String password) {
+        Driver.visibilityOf(loginMap.inpUserName);
+        loginMap.inpUserName.clear();
+        loginMap.inpUserName.sendKeys(email);
 
-    public void clickDivFecharModal() {
-        loginMap.divFecharModal.click();
-    }
-
-    public void setInpUserName(String username) {
-        loginMap.inpUserName.sendKeys(username);
-    }
-
-    public void setInpPassword(String password) {
+        Driver.visibilityOf(loginMap.inpPassword);
+        loginMap.inpPassword.clear();
         loginMap.inpPassword.sendKeys(password);
     }
 
-    public void clickInpRemember() {
-        loginMap.inpRemember.click();
-    }
-
     public void clickBtnLogin() {
+        Driver.visibilityOf(loginMap.btnLogin);
         loginMap.btnLogin.click();
     }
 
-    public boolean isBtnSingIn() {loginMap.btnSingin.click();
+    public String getMsgErroLogin() {
+        Driver.visibilityOf(loginMap.msgErroLogin);
+        return loginMap.msgErroLogin.getText();
+    }
+
+    public boolean loginRealizadoComSucesso() {
+        Driver.visibilityOf(loginMap.txtUsuarioLogado);
+        return loginMap.txtUsuarioLogado.isDisplayed();
     }
 }

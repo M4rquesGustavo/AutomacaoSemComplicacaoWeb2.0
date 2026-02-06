@@ -1,6 +1,7 @@
 package br.chronos.academy.automacaoWeb;
 
 import br.chronos.academy.core.Driver;
+import br.chronos.academy.enums.Browser;
 import br.chronos.academy.pages.CursoWeb;
 import br.chronos.academy.pages.PrincipalPage;
 import org.junit.jupiter.api.AfterEach;
@@ -19,7 +20,7 @@ class TestWeb {
 
     @BeforeEach
     void inicializaTeste() {
-        driverWeb = new Driver("chrome");
+        driverWeb = new Driver(Browser.CHROME);
         driver = driverWeb.getDriver();
         driver.get("https://www.chronosacademy.com.br");
         principalPage = new PrincipalPage(driver);
